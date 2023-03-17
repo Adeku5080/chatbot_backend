@@ -1,30 +1,35 @@
-import React from 'react'
+import React , {useState,useEffect}from 'react'
 import styled from 'styled-components'
+import axios from 'axios'
 
-const TextInput = () => {
+const TextInput = ({onButtonClick}) => {
+  const [text,setText] = useState('')
+
+  const handleSubmit = async (e)=>{
+     e.preventDefault()
+      const {data:{menuItems}}   = await axios.post("http://localhost:8080/api/v1/chatbot",{
+      action: text
+    })
+    console.log(menuItems)
+  }
+
+
+
+  const handleChange = (e)=>{
+    setText(e.target.value)
+    // console.log(N(text,"adeku")
+  }
+
   return (
     <Container>
-        <input type='text' placeholder="Type your response here"/>
+        <input type='number' placeholder="Type your response here" value={text} onChange={handleChange}/>
+        <button onClick={onButtonClick}>send</button>
     </Container>
   )
 }
 
 const Container = styled.div`
-position:absolute;
-bottom:10px;
 
-// border:1px solid black;
-width :50vw;
-height:50px;
-margin:0 auto;
-
-input{
-    border:1px solid red;
-    width:100%;
-    height:100%;
-    border-radius:12px;
-    margin:0 auto;
-}
 `
 
 export default TextInput
