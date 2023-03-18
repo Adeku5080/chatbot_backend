@@ -1,11 +1,21 @@
 const Menu = require("../model/Menu");
 
 const createItem = async (req, res) => {
-  res.send("hello");
+  try{
+    const item = await Menu.create(req.body)
+    res.status(200).json({item})
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const getAllItems = async (req, res) => {
-  res.send("hello");
+  try{
+    const items = await Menu.find({})
+     res.status(200).json({items})
+  }catch(err){
+    console.log(err)
+  }
 };
 
 const getItem = async (req, res) => {

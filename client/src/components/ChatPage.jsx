@@ -8,11 +8,27 @@ const ChatPage = () => {
   const [textInput,setTextInput]=useState('')
 
    const handleSubmit = async (e)=>{
+    
      e.preventDefault()
-      const {data:{menuItems}}   = await axios.post("http://localhost:8080/api/v1/chatbot",{
+
+    //   const {data:{menuItems}}   = await axios.post("http://localhost:8080/api/v1/chatbot",{
+    //   action: textInput
+    // })
+    // // console.group(res, "MOhammed")
+    // setMenuItems(menuItems)
+    if(textInput === "1"){
+          const {data:{menuItems}}   = await axios.post("http://localhost:8080/api/v1/chatbot",{
       action: textInput
     })
     setMenuItems(menuItems)
+    } else if (textInput === "99"){
+           const res   = await axios.post("http://localhost:8080/api/v1/chatbot",{
+      action: textInput
+    })
+    console.log(res,"Ali")
+    }
+
+
   }
 
 
