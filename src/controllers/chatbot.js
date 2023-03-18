@@ -27,7 +27,7 @@ const chatbot = async (req, res) => {
            res.status(404).json({msg : "no order placed"})
           }
 
-         res.status(200).json({msg :"order placed"})
+         res.status(200).json({orders})
 
          
   }

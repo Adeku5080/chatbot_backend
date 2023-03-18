@@ -6,6 +6,7 @@ import axios from "axios"
 const ChatPage = () => {
   const[menuItems ,setMenuItems] = useState([])
   const [textInput,setTextInput]=useState('')
+  const [orderStatus,setOrderStatus] = useState("")
 
    const handleSubmit = async (e)=>{
     
@@ -22,10 +23,11 @@ const ChatPage = () => {
     })
     setMenuItems(menuItems)
     } else if (textInput === "99"){
-           const res   = await axios.post("http://localhost:8080/api/v1/chatbot",{
+           const {data}   = await axios.post("http://localhost:8080/api/v1/chatbot",{
       action: textInput
     })
-    console.log(res,"Ali")
+     data.orders.length === 0 ? setOrderStatus("no order to place") : setOrderStatus("order placed")
+    // console.log(res,"Ali")
     }
 
 
@@ -56,8 +58,14 @@ const ChatPage = () => {
         <div>
         select {menuItem.code} to order {menuItem.name}
         </div>))
-      }
+      } 
+
+          <OrderStatus>      {orderStatus}
+</OrderStatus>
+  
      </ResponseContainer>
+
+
 
        <InputContainer>
         <input type='number' placeholder="Type your response here" value={textInput} onChange={handleChange}/>
@@ -82,7 +90,10 @@ const ResponseContainer=styled.div`
   position:absolute;
   right:100px;
 `
-
+const OrderStatus = styled.div`
+// border:1px solid red;
+margin:20px 0;
+`
 const InputContainer = styled.div`
 position:absolute;
 bottom:10px;
