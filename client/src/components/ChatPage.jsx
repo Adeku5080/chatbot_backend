@@ -9,7 +9,7 @@ const ChatPage = () => {
   const [textInput, setTextInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const BASE_URL = 'https://localhost:8080';
+  const BASE_URL = 'http://localhost:8080';
   const startOptions = `
     <ul>
       <li>Type <strong>1</strong> to place an order</li>
@@ -53,7 +53,7 @@ const ChatPage = () => {
       <table>
         <th>
           <tr>
-            <td>Code</td> <td>Amount</td> <td>Price</td>
+            <td>Code</td> <td>name</td> <td>Price</td>
           </tr>
         </th>
     `;
@@ -79,7 +79,7 @@ const ChatPage = () => {
       <table>
         <th>
           <tr>
-            <td>Code</td> <td>Amount</td> <td>Price</td>
+            <td>Code</td> <td>name</td> <td>Price</td>
           </tr>
         </th>
     `;
@@ -160,7 +160,7 @@ const ChatPage = () => {
    * @param {Object} body 
    * @returns 
    */
-  const createResponse = (body) => {
+  const createResponse = async(body) => {
     const sampleProducts = [
       {
         id: 1,
@@ -182,6 +182,15 @@ const ChatPage = () => {
           }
         }
       case '1':
+
+      // const res = await axios.post('http://localhost:8080/api/v1/chatbot',{
+      //   body
+      // },
+     
+      // )
+      
+      // console.log(res, "mohammed")
+      // break;
         return {
           body: {
             action: '1-res',
@@ -259,8 +268,9 @@ const ChatPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+      //  const url = `${BASE_URL}/chatbot`; //mine
 
-    const url = `${BASE_URL}/chatbot/messages`;
+    const url = `${BASE_URL}/chatbot/messages` //prev fally
     const body = {
       action: inputIsAction ? textInput : currentAction,
       userInput: textInput,
@@ -279,7 +289,7 @@ const ChatPage = () => {
 
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    handleResponse(response.body);
+    handleResponse(response);
 
     setIsProcessing(false);
   };
