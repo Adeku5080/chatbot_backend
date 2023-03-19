@@ -3,7 +3,7 @@ const { chatbot } = require("../controllers/chatbot");
 
 const chatBotRouter = express.Router();
 
-chatBotRouter.route("/").get(chatbot).post(chatbot);
+chatBotRouter.route("/").get().post(chatbot);
 
 
 module.exports = chatBotRouter;
