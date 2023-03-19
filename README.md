@@ -12,7 +12,7 @@ $ npm install
 ## Running the app
 
 ```bash
-#development
+# development
 $ npm run start
 
 ```
