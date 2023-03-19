@@ -2,9 +2,10 @@ const express = require("express");
 const morgan = require("morgan");
 const menuRouter = require("./src/routers/Menu");
 const chatbotRouter = require("./src/routers/chatbot");
-const orderRouter = require("./src/routers/Order")
+const orderRouter = require("./src/routers/Order");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const cors = require("cors");
 
@@ -26,16 +27,27 @@ app.use(cors());
 app.use(express.json());
 app.use(
   session({
-    secret: "secret-key",
-    resave:false,
-    saveUninitialized:false,
+    name: "chatBot",
+    secret: "secret_key",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI, //  this setup a store in your database where sessions will be saved.
+      touchAfter: 1 * 3600,
+    }),
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
+      maxAge: 1 * 60 * 60 * 1000,
+    },
   })
 );
 
 //register routes
 app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/chatbot", chatbotRouter);
-// app.use("/api/v1/order" ,orderRouter)
+app.use("/api/v1/order", orderRouter);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${8080}`);
