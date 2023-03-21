@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const menuRouter = require("./src/routers/Menu");
 const chatbotRouter = require("./src/routers/chatbot");
 const orderRouter = require("./src/routers/Order");
+const deviceRouter = require("./src/routers/device");
+
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -52,6 +54,7 @@ app.use(
 app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/chatbot", chatbotRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/device",deviceRouter);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${8080}`);
