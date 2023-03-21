@@ -13,10 +13,10 @@ const chatbot = async (req, res) => {
 
       break;
 
-    case "0":
-      res.status(200).json({
-        action: "1",
-      });
+    // case "0":
+    //   res.status(200).json({
+    //     action: "1",
+    //   });
 
     case "1-res":
       const items = req.body.userInput.split(",");
@@ -41,31 +41,33 @@ const chatbot = async (req, res) => {
 
     case "98":
       const Id = req.headers.authorization;
-      if (!Id) {
-        return res.status(404).json({
-          action: "98-res",
-           data:{message: "You have not created any order" }},
-        );
-      }
 
       const orderedItems = await Order.find({ device_id: Id });
       console.log(orderedItems);
-      return res.status(200).json({ action: "98-res", data:{orderedItems} });
+      if (!orderedItems) {
+        return res.status(404).json({
+          action: "98-res",
+          message: "You have not created any order",
+        });
+      }
+      return res.status(200).json({ action: "98-res", data: orderedItems });
 
-      case "99":
-        const authId = req.headers.authorization;
-        const orders = await Order.find({device_id : authId})
-        if(!orders){
+    case "99":
+      const authId = req.headers.authorization;
+      const orders = await Order.find({ device_id: authId });
+      if (!orders) {
+        return res
+          .status(404)
+          .json({ action: "1", data: { message: "No order to place " } });
+      }
+      return res
+        .status(200)
+        .json({ action: "1", data: { message: "order placed" } });
 
-          return res.status(404).json({action : "1",data:{message:"No order to place "}})
-        }
-        return res.status(200).json({action:"1" ,data:{message : "order placed"}})
-
-      case "0":
-        const ID = req.headers.authorization;
-        await Order.deleteMany({device_id : ID})
-        return res.status(200).json({action : "1"})
-
+    case "0":
+      const ID = req.headers.authorization;
+      await Order.deleteMany({ device_id: ID });
+      return res.status(200).json({ action: "1" });
   }
 };
 

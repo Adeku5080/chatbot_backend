@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
   item: {
-    type: [String]
+    type: []
   },
   device_id: {
     type: String,
