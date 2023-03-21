@@ -1,6 +1,6 @@
 ## Description
 
-A chatbot built with Express and React
+This is a backend service for a chatbot .
 
 ## Installation
 

@@ -54,7 +54,7 @@ app.use(
 app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/chatbot", chatbotRouter);
 app.use("/api/v1/order", orderRouter);
-app.use("/api/v1/device",deviceRouter);
+app.use("/api/v1/device", deviceRouter);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${8080}`);
