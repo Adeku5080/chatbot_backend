@@ -1,5 +1,10 @@
 const orderModel = require("../model/Order");
 
+/**
+ * 
+ * @param {object} req 
+ * @param {object} res 
+ */
 const createOrder = async (req, res) => {
     console.log(req.session)
   try {
@@ -12,11 +17,7 @@ const createOrder = async (req, res) => {
   }
 };
 
-const getAllOrders = async (req, res) => {
-  const orders = await orderModel.find({});
-  res.status(200).json({ orders });
-};
 
 module.exports ={
-    createOrder,getAllOrders
+    createOrder
 }

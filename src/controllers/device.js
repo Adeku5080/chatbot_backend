@@ -1,5 +1,10 @@
 const Device = require("../model/Device");
 
+/**
+ * 
+ * @param {object} req 
+ * @param {object} res 
+ */
 const createDevice = async (req, res) => {
   try {
     const device = await Device.create(req.body );

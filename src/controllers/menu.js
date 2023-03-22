@@ -1,5 +1,10 @@
 const Menu = require("../model/Menu");
 
+/**
+ * 
+ * @param {object} req 
+ * @param {object} res 
+ */
 const createItem = async (req, res) => {
   try{
     const item = await Menu.create(req.body)
@@ -9,6 +14,11 @@ const createItem = async (req, res) => {
   }
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {object} res 
+ */
 const getAllItems = async (req, res) => {
   try{
     const items = await Menu.find({})
@@ -18,22 +28,10 @@ const getAllItems = async (req, res) => {
   }
 };
 
-const getItem = async (req, res) => {
-  res.send("hello");
-};
 
-const deleteItem = async (req, res) => {
-  res.send("hello");
-};
-
-const updateItem = async (req, res) => {
-  res.send("hello");
-};
 
 module.exports = {
   createItem,
   getAllItems,
-  getItem,
-  deleteItem,
-  updateItem,
+ 
 };

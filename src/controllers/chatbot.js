@@ -1,6 +1,12 @@
 const Menu = require("../model/Menu");
 const Order = require("../model/Order");
 
+/**
+ * 
+ * @param {object} req 
+ * @param {object} res 
+ * @returns 
+ */
 const chatbot = async (req, res) => {
   switch (req.body.action) {
     case "1":
@@ -13,10 +19,6 @@ const chatbot = async (req, res) => {
 
       break;
 
-    // case "0":
-    //   res.status(200).json({
-    //     action: "1",
-    //   });
 
     case "1-res":
       const items = req.body.userInput.split(",");
@@ -43,7 +45,6 @@ const chatbot = async (req, res) => {
       const Id = req.headers.authorization;
 
       const orderedItems = await Order.find({ device_id: Id });
-      console.log(orderedItems);
       if (!orderedItems) {
         return res.status(404).json({
           action: "98-res",
@@ -63,6 +64,15 @@ const chatbot = async (req, res) => {
       return res
         .status(200)
         .json({ action: "1", data: { message: "order placed" } });
+
+    case "97":
+      const device_id = req.headers.authorization;
+      const currentOrder = await Order.findOne({device_id : device_id })
+      
+      if(!currentOrder) {
+        return
+      }   
+      return res.status(200).json({action:"97-res" ,data:currentOrder})
 
     case "0":
       const ID = req.headers.authorization;
